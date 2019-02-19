@@ -1,7 +1,7 @@
 {
     "name": "yun/debugger",
     "type": "wzphp-extension",
-    "description": "The Async mailer for the wzphp framework",
+    "description": "The debugger  for the wzphp framework",
     "keywords": ["debugger", "redis", "wzphp", "framework"],
     "license": "MIT",
     "support": {
