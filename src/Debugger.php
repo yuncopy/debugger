@@ -12,7 +12,6 @@
  * 4 redis redis调用的记录以及耗时的汇总统计
  * 5 mysql mysql调用的记录以及耗时的汇总统计
  * 6 cache memcache调用的记录以及耗时的汇总统计
- * @author 王毅
  */
 
 namespace Debugger;
