@@ -1,0 +1,26 @@
+{
+    "name": "yun/debugger",
+    "type": "wzphp-extension",
+    "description": "The Async mailer for the wzphp framework",
+    "keywords": ["debugger", "redis", "wzphp", "framework"],
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/yuncopy/debugger/issues",
+        "forum": "https://github.com/yuncopy",
+        "source": "https://github.com/yuncopy/debugger"
+    },
+    "authors": [
+        {
+            "name": "yun",
+            "email": "yuncopy@sina.com"
+        }
+    ],
+    "require": {
+
+    },
+    "autoload": {
+        "psr-4": {
+            "yun\\debugger\\": "src/"
+        }
+    }
+}
