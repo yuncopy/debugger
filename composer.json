@@ -1,5 +1,5 @@
 {
-    "name": "yun/debugger",
+    "name": "wzcan/debugger",
     "type": "wzphp-extension",
     "description": "The debugger  for the wzphp framework",
     "keywords": ["debugger", "redis", "wzphp", "framework"],
@@ -11,7 +11,7 @@
     },
     "authors": [
         {
-            "name": "yun",
+            "name": "wzcan",
             "email": "yuncopy@sina.com"
         }
     ],
