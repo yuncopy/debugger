@@ -1,24 +1,16 @@
 <?php
-/**
- * 调试日志操作类
- * DEBUG_LEVEL=0的时候不会在后端运行，
- * DEBUG_LEVEL=1的时候会记录错误、警告信息以及资源调用的耗时汇总统计，
- * DEBUG_LEVEL=2的时候，会记录全部的数据
- * 如果在参数列表中出现 __DEBUG_LEVEL ，则会强制覆盖 DEBUG_LEVEL 的值
- * 功能列表如下：
- * 1 time 性能探针，计算运行的步骤以及每一步的执行效率
- * 2 log 日志记录，把每一个日志信息记录下来
- * 3 http 接口调用的记录以及耗时的汇总统计
- * 4 redis redis调用的记录以及耗时的汇总统计
- * 5 mysql mysql调用的记录以及耗时的汇总统计
- * 6 cache memcache调用的记录以及耗时的汇总统计
- */
 
-namespace Debugger;
+namespace wdebug\debugger;
 
-define('DEBUG_LOG_ERROR', 'ERROR');
-define('DEBUG_LOG_WARNING', 'WARNING');
-define('DEBUG_LOG_INFO', 'INFO');
+
+define(__NAMESPACE__.'_DEBUG_PASS', 'miaosha_debug'); // 请定义自己的密钥
+define(__NAMESPACE__.'_IS_DEBUG', false); // 是否开启调试状态
+define(__NAMESPACE__.'_ERROR_LEVEL', E_ALL); // 异常信息等级
+
+
+define(__NAMESPACE__.'DEBUG_LOG_ERROR', 'ERROR');
+define(__NAMESPACE__.'DEBUG_LOG_WARNING', 'WARNING');
+define(__NAMESPACE__.'DEBUG_LOG_INFO', 'INFO');
 
 
 class Debugger {
@@ -32,6 +24,10 @@ class Debugger {
 	private $cacheList;
 
     private static $instance = false;
+
+    /**
+     * 私有方法，防止直接实例化
+    */
     private function __construct() {}
 
     /**
@@ -43,6 +39,43 @@ class Debugger {
             self::$instance->logId = microtime();
         }
     }
+
+
+    /**
+     *
+     * 配置相关设置
+     *
+    */
+    public static function _enable(){
+
+
+        if(
+            (defined(__NAMESPACE__.'_IS_DEBUG') && __NAMESPACE__._IS_DEBUG) ||
+            (isset($_REQUEST['__debug']) && strpos($_REQUEST['__debug'], _DEBUG_PASS) !== false)
+        ){
+            //    $_REQUEST['__debug'] = _DEBUG_PASS + 1 (2 数字表示级别 )
+            $debug_level = intval(substr($_REQUEST['__debug'], -1));
+            if ($debug_level > 0) {
+                define(__NAMESPACE__.'DEBUG_LEVEL', $debug_level );
+            } else {
+                define(__NAMESPACE__.'DEBUG_LEVEL', 1);
+            }
+            //Debug模式将错误打开
+            ini_set('display_errors', true);
+            //设置错误级别
+            error_reporting(__NAMESPACE__._ERROR_LEVEL);
+            //开启ob函数
+            ob_start();
+            //Debug开关打开
+            self::_init();
+            //注册shutdown函数用来Debug显示
+            register_shutdown_function(array('Debugger', '_show'));
+        } else {
+            define(__NAMESPACE__.'DEBUG_LEVEL', 0);
+        }
+    }
+
+
 
     /**
      * 记录时间，方便调试程序执行逻辑和每一步的执行效率
@@ -58,7 +91,7 @@ class Debugger {
      * 记录运行时的调试信息，分为 DEBUG_LOG_INFO 和 DEBUG_LOG_ERROR，DEBUG_LOG_INFO 只有在全量输出调试信息的时候才会输出
      */
     public static function _log($label, $info, $level=DEBUG_LOG_INFO, $handler = false) {
-        if (self::$instance === false || (DEBUG_LEVEL < 2 && $level == DEBUG_LOG_INFO)) {
+        if (self::$instance === false || (__NAMESPACE__.DEBUG_LEVEL < 2 && $level == DEBUG_LOG_INFO)) {
             return;
         }
         self::$instance->logList[] = array($label, $info, $level, $handler);

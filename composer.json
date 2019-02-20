@@ -1,6 +1,6 @@
 {
-    "name": "wzcan/debugger",
-    "type": "wzphp-extension",
+    "name": "wdebug/debugger",
+    "type": "php-extension",
     "description": "The debugger  for the wzphp framework",
     "keywords": ["debugger", "redis", "wzphp", "framework"],
     "license": "MIT",
@@ -11,7 +11,7 @@
     },
     "authors": [
         {
-            "name": "wzcan",
+            "name": "Ajay",
             "email": "yuncopy@sina.com"
         }
     ],
@@ -20,7 +20,7 @@
     },
     "autoload": {
         "psr-4": {
-            "wzcan\\debugger\\": "src/"
+          "wdebug\\debugger\\": "src/"
         }
     }
 }
