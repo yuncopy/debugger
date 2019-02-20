@@ -1,6 +1,6 @@
 <?php
 
-namespace wdebug\debugger;
+namespace Debugger;
 
 
 define(__NAMESPACE__.'_DEBUG_PASS', 'miaosha_debug'); // 请定义自己的密钥

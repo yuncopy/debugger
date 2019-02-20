@@ -1,5 +1,5 @@
 {
-    "name": "wdebug/debugger",
+    "name": "php-debug/debugger",
     "type": "php-extension",
     "description": "The debugger  for the wzphp framework",
     "keywords": ["debugger", "redis", "wzphp", "framework"],
@@ -20,7 +20,7 @@
     },
     "autoload": {
         "psr-4": {
-          "wdebug\\debugger\\": "src/"
+          "Debugger\\": "src/"
         }
     }
 }
