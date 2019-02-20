@@ -12,7 +12,7 @@
  > 5 mysql mysql调用的记录以及耗时的汇总统计;
  > 6 cache memcache调用的记录以及耗时的汇总统计;
  
-- 安装 `composer require wdebug/debugger`
+- 安装 `composer require php-debug/debugger`
 - 初始化 `require(__DIR__ . '/../vendor/autoload.php');`
 - 使用手册
     - 调用 `\Debugger\Debugger::_enable();`
